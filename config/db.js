@@ -1,7 +1,8 @@
 require('dotenv').config();  // Load environment variables from .env file
-const mysql = require('mysql');
+const { Sequelize } = require('sequelize');
 
-// Create a single connection using environment variables
+// Create a MySQL connection using environment variables
+const mysql = require('mysql');
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -19,39 +20,20 @@ db.connect((err) => {
     console.log('Connected to MySQL');
 });
 
-// Modular query execution
-const executeQuery = (query, params = [], callback) => {
-    db.query(query, params, (err, results) => {
-        if (err) {
-            console.error('Database query failed:', err.message);
-            return callback(err, null);
-        }
-        callback(null, results);
-    });
-};
-
-module.exports = {
-    getAllUsers: (callback) => {
-        const query = 'SELECT * FROM users';
-        executeQuery(query, [], callback);
+// Pass the existing mysql connection to Sequelize
+const sequelize = new Sequelize({
+    dialect: 'mysql',
+    host: process.env.DB_HOST,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    define: {
+        timestamps: false, // globally disable timestamps unless needed in specific models
     },
-
-    getMessages: (userId, callback) => {
-        const query = `
-            SELECT * FROM messages 
-            WHERE sender_id = ? OR receiver_id = ?
-            ORDER BY created_at ASC`; 
-        executeQuery(query, [userId, userId], callback);
+    dialectOptions: {
+        connectTimeout: 10000,  // Adjust connection timeout (optional)
     },
+    // Additional options can be set here as needed
+});
 
-    addMessage: (messageData, callback) => {
-        const query = `
-            INSERT INTO messages (sender_id, receiver_id, message, created_at)
-            VALUES (?, ?, ?, NOW())`;
-        executeQuery(
-            query,
-            [messageData.sender_id, messageData.receiver_id, messageData.message],
-            callback
-        );
-    }
-};
+module.exports = sequelize;
