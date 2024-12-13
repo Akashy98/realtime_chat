@@ -3,20 +3,38 @@
 .App {
   min-height: 100vh;
   display: flex;
-  background-image: url("./background.png");
-  background-position: center;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #a1c4fd, #c2e9fb); /* Modern gradient */
   background-size: cover;
+  font-family: "Work Sans", sans-serif;
+  overflow: hidden;
+  position: relative; /* Ensure proper stacking context */
+  z-index: 1; /* Prevent it from interfering with clickable elements */
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(136, 136, 136, 0.281);
+  background: rgba(136, 136, 136, 0.5);
+  border-radius: 4px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgba(136, 136, 136, 0.8);
+}
+
+.box {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  border-radius: 10px; /* Rounded corners */
+  background: white; /* Ensure background is solid */
+  z-index: 2; /* Ensure it's above the background */
+  position: relative; /* Ensure stacking within the context */
+}
+
+.text-title {
+  color: #2b6cb0; /* Custom color for the title */
+  font-weight: bold;
 }

@@ -27,15 +27,16 @@ function Homepage() {
       <Box
         d="flex"
         justifyContent="center"
-        p={3}
+        p={4}
         bg="white"
         w="100%"
-        m="40px 0 15px 0"
+        m="20px 0"
         borderRadius="lg"
         borderWidth="1px"
+        shadow="md"
       >
-        <Text fontSize="4xl" fontFamily="Work sans">
-          Talk-A-Tive
+        <Text fontSize="4xl" className="text-title" textAlign="center">
+          Sky-Chat
         </Text>
       </Box>
       <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">

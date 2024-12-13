@@ -1,7 +1,7 @@
 
-# Talk-A-Tive
+# Sky-Chat
 
-Talk-a-tive is a Full Stack Chatting App.
+Sky-Chat is a Full Stack Chatting App.
 Uses Socket.io for real time communication and stores user details in encrypted format in Mongo DB Database.
 ## Tech Stack
 
@@ -10,12 +10,7 @@ Uses Socket.io for real time communication and stores user details in encrypted 
 **Server:** Node JS, Express JS
 
 **Database:** Mongo DB
-  
-## Demo
 
-[https://talk-a-tive.herokuapp.com/](https://talk-a-tive-7fgq.onrender.com)
-
-![](https://github.com/piyush-eon/mern-chat-app/blob/master/screenshots/group%20%2B%20notif.PNG)
 ## Run Locally
 
 Clone the project
@@ -76,6 +71,6 @@ Start the Client
 ![](https://github.com/piyush-eon/mern-chat-app/blob/master/screenshots/profile.PNG)
 ## Made By
 
-- [@Piyush-eon](https://github.com/piyush-eon)
+- [@Akashy98](https://github.com/Akashy98)
 
   
