@@ -83,4 +83,40 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { allUsers, registerUser, authUser };
+const changePassword = asyncHandler(async (req, res) => {
+  
+  const { currentPassword, newPassword, confirmPassword } = req.body;
+
+  // Validate input
+  if (!currentPassword || !newPassword || !confirmPassword) {
+    res.status(400);
+    throw new Error("Please provide all required fields: old password, new password, and confirm password");
+  }
+
+  if (newPassword !== confirmPassword) {
+    res.status(400);
+    throw new Error("New password and confirm password do not match");
+  }
+
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Validate old password
+  const isMatch = await user.matchPassword(currentPassword);
+  if (!isMatch) {
+    res.status(401);
+    throw new Error("Old password is incorrect");
+  }
+
+  // Update password
+  user.password = newPassword;
+  await user.save();
+
+  res.status(200).json({ message: "Password updated successfully" });
+});
+
+module.exports = { allUsers, registerUser, authUser, changePassword };

@@ -31,12 +31,19 @@ import { Effect } from "react-notification-badge";
 import { getSender } from "../../config/ChatLogics";
 import UserListItem from "../userAvatar/UserListItem";
 import { ChatState } from "../../Context/ChatProvider";
+import ChangePasswordModal from "./ChangePasswordModal";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
+
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+
+  const onOpenChangePasswordModal = () => setIsChangePasswordOpen(true);
+  const onCloseChangePasswordModal = () => setIsChangePasswordOpen(false);
+
 
   const {
     setSelectedChat,
@@ -183,6 +190,7 @@ function SideDrawer() {
               <ProfileModal user={user}>
                 <MenuItem>My Profile</MenuItem>{" "}
               </ProfileModal>
+              <MenuItem onClick={onOpenChangePasswordModal}>Change Password</MenuItem>
               <MenuDivider />
               <MenuItem onClick={logoutHandler}>Logout</MenuItem>
             </MenuList>
@@ -219,6 +227,11 @@ function SideDrawer() {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={onCloseChangePasswordModal}
+        user={user}
+      />
     </>
   );
 }
